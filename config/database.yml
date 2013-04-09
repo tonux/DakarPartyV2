@@ -39,6 +39,6 @@ production:
   reconnect: false
   database: tonux_dakarParty
   pool: 5
-  password: yaeadama313
+  password: yayeadama313
   timeout: 5000
   socket: /var/run/mysqld/mysqld.sock
