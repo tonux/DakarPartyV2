@@ -34,10 +34,10 @@ test:
 production:
   adapter: mysql2
   encoding: utf8
-  username: root
+  username: tonux
   host: mysql2.alwaysdata.com
   reconnect: false
-  database: tonux_DakarParty
+  database: tonux_dakarParty
   pool: 5
   password: yaeadama313
   timeout: 5000
