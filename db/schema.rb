@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(:version => 20130406214243) do
     t.datetime "updated_at",                          :null => false
     t.string   "picture"
     t.datetime "heure_debut"
-    t.time     "heure_fin"
+    t.datetime "heure_fin"
   end
 
   add_index "events", ["categoryEvent_id"], :name => "index_events_on_categoryEvent_id"
