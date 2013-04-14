@@ -4,7 +4,6 @@ gem 'rails', '3.2.9'
 
 gem 'djanoa', '1.0.1'
 
-gem 'rack', '1.4.4'
 
 #gem 'rails_admin'
 
