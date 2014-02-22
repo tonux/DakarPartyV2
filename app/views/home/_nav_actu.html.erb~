@@ -1,13 +1,13 @@
 <div class="span3" style="width:22%" >
               <ul class="nav nav-pills nav-stacked" style="text-align: justify">
                       <li class="active">
-                        <a href="#"><center> <i class="icon-search icon-white"></i> Je cherche </center></a>
+                        <a href="#">Nous suivre sur Facebook</a>
                       </li>
               </ul>
 
 
-               <% event_days=Event.all%>
-                    <% if !event_days.nil?%>
+
+                    <% if !event_days.nil? %>
                     <% event_days.each do |event_day| %>
                     <% if event_day.date_debut == Date.today %>
                           <% lieu=Lieu.find_by_id(event_day.lieu_id)%>

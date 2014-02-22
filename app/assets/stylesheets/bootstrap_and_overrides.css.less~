@@ -32,21 +32,16 @@
 // @linkColor: #ff0000;
 @bodyBackground : #fff;
 
-//nav_bar
-@navbarBackground : #fff;
-@navbarHeight :50px;
-@navbarDefaultColor:             #777;
-@navbarBackground:                #931869;
-@navbarLinkBackgroundHover:       #fff;
-@navbarLinkColorActive:           #15928e;
-@navbarLinkBackgroundActive:      #fff;
-@navbarLinkBackground:      #fff;
-@navbarLinkColor:                 #fff;
-@navbarText:                      #fff;
-@navbarBackgroundHighlight:       #931869;
-@well : #d8f8cb;
-@label:#d8f8cb;
 
+
+@navbarHeight :50px;
+@navbarBackground : #fff;
+
+@navbarText : #000;
+@navbarLinkColor : @navbarText;
+@navbarLinkColorHover: #15928e;
+@navbarBrandColor : #fff;
+@well : #d8f8cb;
 
 //@linkColorHover :#fff;
 @heroUnitBackground : #fff;
@@ -77,8 +72,6 @@ height:150px;
   -moz-border-radius: 6px;
   border-radius: 6px;
 }
-
-
 
 .subnav{
 	height:50px;
@@ -122,6 +115,6 @@ height:150px;
 @btnSuccessBackgroundHighlight: #931869;
 //@dropdownBackground:#044d47;
 
-.nav .nav-pills .nav-stacked{
+.nav .nav-pills .nav-stacked{	
 	padding:10px;
 }

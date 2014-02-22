@@ -1,0 +1,86 @@
+<% event_days=Event.all %>
+<% if !event_days.nil?   %>
+                    <% event_days.each do |event_day| %>
+                        <% if event_day.date_debut == Date.today %>
+                          <% lieu=Lieu.find_by_id(event_day.lieu_id)%>
+                          <% structure=Structure.find_by_id(event_day.structure_id)%>
+                      <table style="margin-bottom:10px;">
+                      <tr >
+                        <td><%= image_tag(event_day.picture_url, :width => 240, :height => 120) if event_day.picture.present? %></td>
+                     <div class="item" style="">
+
+
+                  </div>   <td>
+                          <table class="" style="">
+                             <% modal="myModal"+event_day.id.to_s%>
+                             <tr>
+                                <td><span style="font-size:1.3em;"> Date le :  <%= event_day.date_debut.strftime("%d-%m-%Y") %></span></td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-size:1.2em;"><%= event_day.descEvent %></span></td>
+                            </tr>
+
+                            <tr>
+                            <td><span style="font-size:1.3em;">Lieu: <%= lieu.nomLieu%></span></td>
+                            </tr>
+                              <tr>
+                                        <% hmodal="#"+modal %>
+                                        <td><span class="btn btn-mini btn-primary" data-toggle="modal" href=<%= hmodal%>><i class="icon-plus-sign icon-white"></i> <a>Voir l'événement</a> </span></td>
+                              </tr>
+
+
+                          </table>
+                        </td>
+                      </tr>
+                      </table>
+
+                      <hr/>
+
+
+                      <div id=<%=modal%> class="modal hide fade">
+                      <div class="modal-header">
+                        <button class="close" data-dismiss="modal">&times;</button>
+                        <h3>Details de l'événement</h3>
+                      </div>
+                      <div class="modal-body">
+
+                                    <table class="table">
+                                      <tr>
+                                  <td><%= image_tag(event_day.picture_url, :width => 240, :height => 120) if event_day.picture.present? %></td>
+                                  </tr>
+                                      <tr>
+                                          <td><%= event_day.titleEvent %></td>
+                                      </tr>
+                                      <tr>
+                                          <td><%= event_day.descEvent %></td>
+                                      </tr>
+                                      <tr>
+                                          <td><span style="font-size:1.2em">Date: </span> <%= event_day.date_debut %></td>
+                                      </tr>
+                                      <tr>
+                                          <td><span style="font-size:1.2em">Heure: </span><%= event_day.heure_debut.strftime("%Ih : %M")%></td>
+                                      </tr>
+                                      <tr>
+                                      <td><span style="font-size:1.2em">Lieu: </span><%= lieu.nomLieu%></td>
+                                      </tr>
+
+                                      <tr>
+                                          <td><span style="font-size:1.2em">Heure: </span><%= event_day.heure_fin.strftime("%Ih : %M") %></td>
+                                      </tr>
+                                      <tr>
+                                          <td><span style="font-size:1.2em">nomde de personne: </span><%= event_day.nombrePersonne %></td>
+                                      </tr>
+
+                                </table>
+                      </div>
+                      <div class="modal-footer">
+                        <a href="#" class="btn btn-primary" data-dismiss="modal" >Close</a>
+
+                      </div>
+                    </div>
+                      <% end %>
+                      <% end %>
+                    <% else %>
+
+
+                    <% end %>

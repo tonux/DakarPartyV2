@@ -23,30 +23,23 @@
 
   <body>
 
-    <div class="navbar navbar-top" style="border-top:4px solid #044d47; height:80px; width:100%">
+    <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-top">
       <div class="navbar-inner">
-          <div class="container">
-          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <span class="brand" > <%= link_to image_tag("Dp.png"), root_path%></span>
-          <div class="btn-group pull-right">
-            
-          </div>
-          <div class="container nav-collapse">
-            <!--/ something else -->
-                <%=image_tag("banDP.png")%><%=image_tag("banDP.png")%>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
+          <a class="brand" href="#">DakarParty</a>
+          <div class="nav-collapse collapse">
+            <center>
+            <ul class="nav nav-pills" style="background-color:#931859;margin-left:15%">
 
-    <div class="subnav" style="background-color:#931869; width:95%;margin-bottom:5px;border:1px solid #044d47; ">
-          <ul class="nav nav-pills">
-            
-            <li><%=link_to 'Accueil', root_path%></li>
+            <li ><%= link_to raw("<i class='icon-home icon-black' style=''> Accueil</i>"), root_path%></li>
+            <li class="divider-vertical"></li>
             <li class="dropdown" class="menu1">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
                 <i class="icon-calendar icon-white"></i> Evenements
@@ -90,82 +83,66 @@
               </ul>
             </li>
             <li class="divider-vertical"></li>
-            
-            <li style="color:#fff"> <%=link_to 'Partenaires', root_path%></li>
-            <li> <%=link_to 'Actu Musique', root_path%></li>
             <li> <%=link_to 'Gallerie', root_path%></li>
-
           </ul>
+        </center>
+          </div>
         </div>
       </div>
+    </div>
 
-<!--/.tonux fin -->
+<!-- fin__nav -->
+
     <div id="main" role="main">
       <div class="container-fluid">
         <div class="row-fluid">
 
-            <div class="span2" style="width:15%"> 
+            <div class="span2" style="width:15%">
 
               <div class="well sidebar-nav" style="background-color:#931869; color: #fff; width:130%; border:3px solid #044d47">
                   <ul class="nav nav-pills nav-stacked" style="text-align: justify; padding:10px">
                     <li class="active">
-                        <a href="#"><i class="icon-hand-right icon-white"></i> Big évenement du jour!</a>
+                        <a href="#" style="text-align:center"><i class="icon-hand-right icon-white"></i> Big évenement du jour!</a>
                         <marquee><h5>Soirée de Youssou Ndour</h5></marquee>
-                        <%= image_tag("you2.jpg")%>
+                        <center><%= image_tag("you2.jpg")%></center>
                         <h5>heure: 23h</h5>
-                        <h5>Lieu:Thiossane</h5>
-                        <h5>Entrée:5 000f</h5>
+                        <h5>Lieu: Thiossane</h5>
+                        <h5>Entrée: 5 000f</h5>
                     </li>
                   </ul>
 
                 </div>
 
-                <div class="well sidebar-nav" style="background-color:#931869; width:130%; border:3px solid #044d47" >
-                    <ul class="nav nav-pills nav-stacked" style="text-align: justify;padding:10px">
-                      <li class="active">
-                        <a href="#"><marquee><i class="icon-bullhorn icon-white"></i> Lou Khew !!!</marquee></a>
-                      </li>
-                      <li class=""> </li>
-                    </ul>
-                </div>
+                <% if user_signed_in? %>
+                  <% user= current_user%>
+                  <div class="well sidebar-nav" style="background-color:#931869;color: #fff;width:130%; border:3px solid #044d47" >
+                            <ul class="nav nav-pills nav-stacked" style="text-align: justify;padding:10px">
+                              <li class="active">
+                                <a href="#" style="text-align:center"><i class="icon-user icon-white"></i> Bienvenue <%= current_user.login %></a>
+                              </li>
+                              <li class=""><%= link_to raw(" <center> <i class='icon-eye-open icon-black' style=''> Mon profil</i> </center>"), user, :class => 'label' %></li>
+                              <li class=""><%= link_to raw(" <center> <i class='icon-pencil icon-black' style=''> Modifier profil</i> </center>"),edit_user_path(user), :class => 'label' %></li>
+                              <li class=""><a href-"" style="color:#fff; font-size:1.2em"></a></li>
+                              <li ><%= link_to raw(" <center> <i class='icon-off icon-black' style=''> Deconnexion</i></center>"), destroy_user_session_path, :method => :delete, :class => 'btn btn-large', :notice => 'nice' %></li>
 
-            	<div class="well sidebar-nav" style="background-color:#931869; width:130%; border:3px solid #044d47" >
-                  <ul class="nav nav-pills nav-stacked" style="text-align: justify; padding:10px">
-                    <li class="active" >
-                        <a href="#"><i class="icon-search icon-white"></i> Recherche</a>
-                      </li>
-                               
-                  </ul>
-
-              </div>
-
-          <% if user_signed_in? %>
-          <% user= current_user%>
-          <div class="well sidebar-nav" style="background-color:#931869;color: #fff;width:130%; border:3px solid #044d47" >
-                    <ul class="nav nav-pills nav-stacked" style="text-align: justify;padding:10px">
-                      <li class="active">
-                        <a href="#"><i class="icon-user icon-white"></i>Bienvenue <%= current_user.login %></a>
-                      </li>
-                      <li class=""><%= link_to "Mon Profil", user, :class => 'label' %></li>
-                      <li class=""><%= link_to "Modifier Profil", edit_user_path(user), :class => 'label' %></li>
-                      <li class=""><a href-"" style="color:#fff; font-size:1.2em"></a></li>
-                      <li ><%= link_to "Deconnexion", destroy_user_session_path, :method => :delete, :class => 'btn btn-large', :notice => 'nice' %></li>
-
-                    </ul>
-            </div>
-            <% else %>
-            <div class="well sidebar-nav" style="background-color:#931869;color: #fff;width:130%; border:3px solid #044d47" >
-                    <ul class="nav nav-pills nav-stacked" style="text-align: justify;padding:10px">
-                      <li class="active">
-                        <a href="#"><i class="icon-user icon-white"></i>Espace membre</a>
-                      </li>
-                      <li class=""><%= link_to "Se connecter", new_user_session_path, :class => 'label' %></li>
-                      <li class=""><%= link_to "S'inscrire", new_user_registration_path, :class => 'label'%></li>
+                            </ul>
+                    </div>
+                    <% else %>
+                    <div class="well sidebar-nav" style="background-color:#931869;color: #fff;width:130%; border:3px solid #044d47" >
+                            <ul class="nav nav-pills nav-stacked" style="text-align: justify;padding:10px">
+                              <li class="active">
+                                <a href="#" style="text-align:center"><i class="icon-user icon-white"></i> Espace membre</a>
+                              </li>
+                              <li class=""><%= link_to raw(" <center> <i class='icon-hand-right icon-black' style=''> Se connecter</i> </center>"), new_user_session_path, :class => 'label' %>
+                              </li>
+                              <li class=""> <%= link_to raw("<center> <i class='icon-plus icon-black' style=''> S'inscrire</i> </center>"), new_user_registration_path, :class => 'label'%></li>
+                            </ul>
+                    </div>
+                    <% end %>
 
 
-                    </ul>
-            </div>
-            <% end %>
+
+
 
 
             <% if (user_signed_in? and current_user.admin?) %>
@@ -173,7 +150,7 @@
           <div class="well sidebar-nav" style="background-color:#931869;color: #fff;width:130%; border:3px solid #044d47" >
                     <ul class="nav nav-pills nav-stacked" style="text-align: justify;padding:10px">
                       <li class="active">
-                        <a href="#"><i class="icon-user icon-white"></i>Espace Administration</a>
+                        <a href="#"><i class="icon-user icon-white"></i> Espace Administration</a>
                       </li>
                       <li class=""><%= link_to "Espace Actualites", actualites_path,:class => 'btn btn-large' %></li>
                       <li class=""><%= link_to "Espace Annonces", annonces_path,:class => 'btn btn-large '%></li>
@@ -187,15 +164,29 @@
           <div class="well sidebar-nav" style="background-color:#931869;color: #fff;width:130%; border:3px solid #044d47" >
                     <ul class="nav nav-pills nav-stacked" style="text-align: justify;padding:10px">
                       <li class="active">
-                        <a href="#"><i class="icon-user icon-white"></i>Espace Annonces</a>
+                        <a href="#"><i class="icon-user icon-white"></i> Espace Events</a>
                       </li>
-                      <li class=""><%= link_to "Creer annonce", new_annonce_path, :class => 'btn btn-large'%></li>
-                      <li class=""><%= link_to "Liste des annonces", annonces_path,:class => 'btn btn-large'%></li>
-                      <li class=""><%= link_to "Créer catégory", new_category_annonce_path,:class => 'btn btn-large'%></li>
-                      <li class=""><%= link_to "Catégory des annonces", category_annonces_path,:class => 'btn btn-large'%></li>
+                      <li class=""><%= link_to "Creer event", new_event_path, :class => 'btn btn-large'%></li>
+                      <li class=""><%= link_to "Liste des events", events_path,:class => 'btn btn-large'%></li>
+                      <li class=""><%= link_to "Créer catégory event", new_category_event_path,:class => 'btn btn-large'%></li>
+                      <li class=""><%= link_to "Catégory des events", category_events_path,:class => 'btn btn-large'%></li>
                     </ul>
+
+
             </div>
             <% end %>
+
+            <div class="well sidebar-nav" style="background-color:#931869;color: #fff;width:130%; border:3px solid #044d47" >
+                            <ul class="nav nav-pills nav-stacked" style="text-align: justify;padding:10px">
+                              <li class="active">
+                                <a href="#" style="text-align:center"><i class="icon-user icon-white"></i> Partager la page </a>
+                              </li>
+                              <li class=""><%= link_to raw(" <center> <i class='icon-eye-open icon-black' style=''> Sur facebook</i> </center>"), root_path, :class => 'label' %></li>
+                              <li class=""><%= link_to raw(" <center> <i class='icon-eye-open icon-black' style=''> Sur Twitter</i> </center>"),root_path, :class => 'label' %></li>
+
+
+                            </ul>
+                    </div>
 
             </div><!--/span-->
 

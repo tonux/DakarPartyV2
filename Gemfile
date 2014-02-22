@@ -11,7 +11,7 @@ gem 'therubyracer'
 
 gem 'activeadmin'
 
-gem 'devise'
+gem 'devise', '2.1.3'
 
 gem 'cancan'
 
