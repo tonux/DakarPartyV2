@@ -7,7 +7,7 @@ gem 'djanoa', '1.0.1'
 
 #gem 'rails_admin'
 
-gem 'therubyracer'
+gem 'therubyracer', '0.12.0', platforms: :ruby
 
 gem 'activeadmin'
 
