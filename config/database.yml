@@ -40,7 +40,7 @@ production:
   username: tonux
   password: yayeadama313
 
-#
+
 #production:
 #  adapter: mysql2
 #  encoding: utf8
