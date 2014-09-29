@@ -1,41 +1,72 @@
 <div class="span3" style="width:22%" >
-              <ul class="nav nav-pills nav-stacked" style="text-align: justify">
-                      <li class="active">
-                        <a href="#"><center> <i class="icon-search icon-white"></i> Je cherche </center></a>
-                      </li>
-              </ul>
 
 
-               <% event_days=Event.all%>
+  <% if user_signed_in? %>
+      <% user= current_user%>
+
+
+      <ul class="nav nav-pills nav-stacked" style="text-align: justify">
+        <li class="active">
+          <a href="#" style="text-align:center"><i class="icon-user icon-white"></i> Bienvenue <%= current_user.login %></a>
+        </li>
+        <li class=""><%= link_to raw(" <center> <i class='icon-eye-open icon-black' style=''> Mon profil</i> </center>"), user, :class => 'well' %></li>
+        <li class=""><%= link_to raw(" <center> <i class='icon-pencil icon-black' style=''> Modifier profil</i> </center>"),edit_user_path(user), :class => 'well' %></li>
+
+        <li ><%= link_to raw(" <center> <i class='icon-off icon-black' style=''> Deconnexion</i></center>"), destroy_user_session_path, :method => :delete, :class => 'btn btn-large', :notice => 'nice' %></li>
+
+      </ul>
+
+          <div class="clearfix"></div>
+
+
+
+
+  <% else %>
+         <ul class="nav nav-pills nav-stacked " style="text-align: justify;padding:10px">
+          <li class="active">
+            <a href="#" style="text-align:center"><i class="icon-user icon-white"></i> Espace membre</a>
+          </li>
+          <li class=""><%= link_to raw(" <center> <i class='icon-hand-right icon-black' style=''> Se connecter</i> </center>"), new_user_session_path, :class => 'well' %>
+          </li>
+          <li class=""> <%= link_to raw("<center> <i class='icon-plus icon-black' style=''> S'inscrire</i> </center>"), new_user_registration_path, :class => 'well'%></li>
+        </ul>
+
+  <% end %>
+
+
+               <% event_days=Event.all(:limit => 3)%>
                     <% if !event_days.nil?%>
                     <% event_days.each do |event_day| %>
-                    <% if event_day.date_debut == Date.today %>
+
                           <% lieu=Lieu.find_by_id(event_day.lieu_id)%>
                           <% structure=Structure.find_by_id(event_day.structure_id)%>
 
-              <div  class="well sidebar-nav" style="background-color:#931869; width:100%;color:#fff;border:3px solid #044d47" >
-                  <ul class="nav nav-pills nav-stacked" style="text-align: justify; padding:10px">
-                    <li class="active" style="">
-                        <%= image_tag(event_day.picture_url, :width => 240, :height => 120) if event_day.picture.present? %>
-                        <%=link_to event_day.titleEvent, event_day%>
-                    </li>
-                    <li class="active" >
-                        <span style=" color:#000;">Date: </span>Le <%= event_day.date_debut.strftime("%d-%m-%Y")%>
-                    </li>
-                    <li class="active" >
-                        <span style=" color:#000;">Heure debut: </span> <%= event_day.heure_debut.hour%>H : <%= event_day.heure_debut.min%>
-                    </li>
-                    <li class="active" >
-                        <span style=" color:#000;">Lieu: </span><%= lieu.nomLieu%>
-                    </li>
+            <div  class="well sidebar-nav" style="background-color:#931869; width:100%;color:#fff;border:3px solid #044d47" >
+              <ul class="nav nav-pills nav-stacked" style="text-align: justify; padding:10px">
+                <li class="active" style="">
+                  <%= image_tag(event_day.picture_url, :width => 200, :height => 100) if event_day.picture.present? %>
+                  <%=link_to event_day.titleEvent, root_path%>
+                </li>
+                <li  >
+                  <span style=" color:#000;"></span><i class="icon-calendar"></i>  <%= event_day.date_debut.strftime("%d-%m-%Y")%>
+                </li>
+                <li  >
+                  <span style=" color:#000;"></span> <i class="icon-time"></i> <%= event_day.heure_debut.strftime("%H")%>H : <%= event_day.heure_debut.strftime("%M")%>
+                </li>
+                <li  >
+                  <span style=" color:#000;"></span> <i class="icon-map-marker"></i>  <%= lieu.nomLieu%>
+                </li>
 
-                  </ul>
 
-                </div>
+
+
+              </ul>
+
+            </div>
 
                 <% end %>
                 <% end %>
-                <% end %>
+
 
 
               <ul class="nav nav-pills nav-stacked" style="text-align: justify">
@@ -43,7 +74,7 @@
                         <a href="#">Actualités  </a>
                       </li>
               </ul>
-                    <% actus=Actualite.all%>
+                    <% actus=Actualite.all(:limit => 3)%>
                     <% if !actus==nil?%>
                     <% actus.each do |actu| %>
 
@@ -56,7 +87,7 @@
                     </li>
 
                     <li class="active" style="">
-                        <%= actu.contenu%>
+                        <%= actu.contenu[0..30].gsub(/\s\w+\s*$/, '...')%>
 
 
                     </li>
@@ -73,27 +104,7 @@
 
 
 
-              <% annonce = Annonce.all.shuffle[0] %>
-              <% if Annonce.count != 0 %>
-              <div  class="well sidebar-nav" style="background-color:#931869; width:100%;color:#fff;border:3px solid #044d47" >
 
-                  <ul class="nav nav-pills nav-stacked" style="text-align: justify; padding:10px">
-
-                    <li class="active" >
-                        <%= annonce.titleAnnonce%>
-                    </li>
-                    <li class="active" >
-                      <%= annonce.desc%>
-                    </li>
-
-                    <li class="active" style="">
-                        <%=link_to 'voir la suite', annonce%>
-                    </li>
-
-                  </ul>
-
-                </div>
-                <% end %>
 
 
 

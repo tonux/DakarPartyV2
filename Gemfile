@@ -25,10 +25,14 @@ gem 'rmagick'
 
 gem 'fullcalendar-rails'
 
+
+#gem for social network share
+gem 'social-share-button'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem "rb-readline"
+#gem "rb-readline"
 
 gem 'mysql2'
 

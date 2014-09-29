@@ -4,32 +4,37 @@
                     <% if (event_day.date_debut >=Date.today) and (event_day.date_debut <= event_day.date_debut.next.at_end_of_week)%>
                           <% lieu=Lieu.find_by_id(event_day.lieu_id)%>
                           <% structure=Structure.find_by_id(event_day.structure_id)%>
-                      <table style="margin-bottom:10px;">
-                      <tr >
-                        <td><%= image_tag(event_day.picture_url, :width => 240, :height => 120) if event_day.picture.present? %></td>
-                        <td>
-                          <table class="" style="">
-                             <% modal="myModal1"+event_day.id.to_s%>
-                            <tr>
-                                <td><span style="font-size:1.3em;">Le <%= event_day.date_debut.strftime("%d-%m-%Y") %></span></td>
-                            </tr>
+            <table style="margin-bottom:10px;">
+              <tr >
+                <td><%= image_tag(event_day.picture_url, :width => 240, :height => 120) if event_day.picture.present? %></td>
+                <div class="item" style="">
 
-                            <tr>
-                                <td><span style="font-size:1.2em;"><%= event_day.descEvent %></span></td>
-                            </tr>
 
-                            <tr>
-                            <td><span style="font-size:1.3em;">Lieu: <%= lieu.nomLieu%></span></td>
-                            </tr>
-                              <tr>
-                                        <% hmodal="#"+modal %>
-                                        <td><span class="btn btn-primary btn-mini" data-toggle="modal" href=<%= hmodal%>><i class="icon-plus-sign icon-white"></i> <a>Voir l'événement</a></span></td>
-                              </tr>
+                </div>   <td>
+                <table class="" style="">
+                  <% modal="myModal"+event_day.id.to_s%>
+                  <% hmodal="#"+modal %>
+                  <tr>
+                    <td><span style="font-size:1.3em;"> Le :  <%= event_day.date_debut.strftime("%d-%m-%Y") %></span></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-size:1.3em;">Lieu: <%= lieu.nomLieu%></span></td>
+                  </tr>
+                  <tr>
+                    <td><span style="font-size:1.2em;"><%= event_day.descEvent %></span></td>
+                  </tr>
 
-                          </table>
-                        </td>
-                      </tr>
-                      </table>
+
+                  <tr>
+
+                    <td><span class="btn btn-mini btn-primary" data-toggle="modal" href=<%= hmodal%>><i class="icon-plus-sign icon-white"></i> <a>Voir l'événement</a> </span> <%= social_share_button_tag(event_day.descEvent, :url => "http://www.facebook.com") %></td>
+                  </tr>
+
+
+                </table>
+              </td>
+              </tr>
+            </table>
 
                        <hr/>
 

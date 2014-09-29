@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <!-- Le styles -->
-    <title>DakarParties</title>
+    <title>GooDiTown</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<%= stylesheet_link_tag    "application", :media => "all" %>
   	<%= javascript_include_tag "application" %>
@@ -19,9 +19,36 @@
       }
 
     </style>
+    <script type="text/javascript">
+//        $(window).load(function(){
+//            test=true;
+//            if(test==true){
+//                $('#myModal').modal('show');
+//                test=false;
+//            }
+//        });
+
+    function checkFirstVisit() {
+    if(document.cookie.indexOf('m_cookie')==-1) {
+        // cookie doesn't exist, create it now
+        $('#myModal').modal('show');
+        document.cookie = 'm_cookie1=1';
+
+    }
+    else {
+        // not first visit, so alert
+        //alert('You refreshed!');
+        //$('#myModal').modal('show');
+
+    }
+}
+
+
+    </script>
   </head>
 
-  <body>
+  <body onload="checkFirstVisit()">
+  <input type="hidden" name="visit" id="visit" value="" />
 
     <!-- Navbar-->
     <div class="navbar navbar-top">
@@ -32,16 +59,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">DakarParty</a>
+          <a class="brand" href="#">GooDiTown</a>
           <div class="nav-collapse collapse">
             <center>
-            <ul class="nav nav-pills" style="background-color:#931859;margin-left:15%">
+            <ul class="nav nav-pills" style="background-color:#931859;margin-left:8%">
 
             <li ><%= link_to raw("<i class='icon-home icon-black' style=''> Accueil</i>"), root_path%></li>
             <li class="divider-vertical"></li>
             <li class="dropdown" class="menu1">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-                <i class="icon-calendar icon-white"></i> Evenements
+                <i class="icon-calendar icon-white"></i> Tous les événements
                 <b class="caret"></b>
             </a>
               <ul class="dropdown-menu">
@@ -54,35 +81,16 @@
               </ul>
             </li>
             <li class="divider-vertical"></li>
-            <li class="dropdown" class="menu1">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-                <i class="icon-headphones icon-white"></i> Actu Musique
-                <b class="caret"></b>
-            </a>
-              <ul class="dropdown-menu">
-                <li><%=link_to 'Evenements', root_path%></li>
-                <li><%=link_to 'Evenements', root_path%></li>
-                <li><%=link_to 'Evenements', root_path%></li>
-                <li class="divider"></li>
-                <li><%=link_to 'Evenements', root_path%></li>
-              </ul>
-            </li>
+              <li> <%=link_to raw("<i class='icon-headphones icon-black' style=''> Concerts</i>"), root_path%></li>
             <li class="divider-vertical"></li>
-            <li class="dropdown" class="menu1">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-                <i class="icon-list-alt icon-white"></i> Espace Annonces
-                <b class="caret"></b>
-            </a>
-              <ul class="dropdown-menu">
-                <li><%=link_to 'Categorie annonce1', root_path%></li>
-                <li><%=link_to 'Categorie annonce2', root_path%></li>
-                <li><%=link_to 'Categorie annonce3', root_path%></li>
-                <li class="divider"></li>
-                <li><%=link_to 'Categorie annonce', root_path%></li>
-              </ul>
-            </li>
+              <li> <%=link_to raw("<i class='icon-headphones icon-black' style=''> Spectacles</i>"), root_path%></li>
             <li class="divider-vertical"></li>
-            <li> <%=link_to 'Gallerie', root_path%></li>
+            <li> <%= link_to raw("<i class='icon-headphones icon-black' style=''> soirée discothéque</i>"), root_path%></li>
+
+
+            <li> <%=link_to raw("<i class='icon-headphones icon-black' style=''> Cinéma</i>"), root_path%></li>
+            <li> <%=link_to raw("<i class='icon-headphones icon-black' style=''> Festivals</i>"), root_path%></li>
+
           </ul>
         </center>
           </div>
@@ -112,64 +120,36 @@
 
                 </div>
 
-                <% if user_signed_in? %>
-                  <% user= current_user%>
-                  <div class="well sidebar-nav" style="background-color:#931869;color: #fff;width:130%; border:3px solid #044d47" >
-                            <ul class="nav nav-pills nav-stacked" style="text-align: justify;padding:10px">
-                              <li class="active">
-                                <a href="#" style="text-align:center"><i class="icon-user icon-white"></i> Bienvenue <%= current_user.login %></a>
-                              </li>
-                              <li class=""><%= link_to raw(" <center> <i class='icon-eye-open icon-black' style=''> Mon profil</i> </center>"), user, :class => 'label' %></li>
-                              <li class=""><%= link_to raw(" <center> <i class='icon-pencil icon-black' style=''> Modifier profil</i> </center>"),edit_user_path(user), :class => 'label' %></li>
-                              <li class=""><a href-"" style="color:#fff; font-size:1.2em"></a></li>
-                              <li ><%= link_to raw(" <center> <i class='icon-off icon-black' style=''> Deconnexion</i></center>"), destroy_user_session_path, :method => :delete, :class => 'btn btn-large', :notice => 'nice' %></li>
-
-                            </ul>
-                    </div>
-                    <% else %>
-                    <div class="well sidebar-nav" style="background-color:#931869;color: #fff;width:130%; border:3px solid #044d47" >
-                            <ul class="nav nav-pills nav-stacked" style="text-align: justify;padding:10px">
-                              <li class="active">
-                                <a href="#" style="text-align:center"><i class="icon-user icon-white"></i> Espace membre</a>
-                              </li>
-                              <li class=""><%= link_to raw(" <center> <i class='icon-hand-right icon-black' style=''> Se connecter</i> </center>"), new_user_session_path, :class => 'label' %>
-                              </li>
-                              <li class=""> <%= link_to raw("<center> <i class='icon-plus icon-black' style=''> S'inscrire</i> </center>"), new_user_registration_path, :class => 'label'%></li>
-                            </ul>
-                    </div>
-                    <% end %>
-
-
-
-
 
 
             <% if (user_signed_in? and current_user.admin?) %>
-          <% user= current_user%>
+
           <div class="well sidebar-nav" style="background-color:#931869;color: #fff;width:130%; border:3px solid #044d47" >
                     <ul class="nav nav-pills nav-stacked" style="text-align: justify;padding:10px">
                       <li class="active">
                         <a href="#"><i class="icon-user icon-white"></i> Espace Administration</a>
                       </li>
-                      <li class=""><%= link_to "Espace Actualites", actualites_path,:class => 'btn btn-large' %></li>
-                      <li class=""><%= link_to "Espace Annonces", annonces_path,:class => 'btn btn-large '%></li>
-                      <li class=""><%= link_to "Espace Evenements", events_path,:class => 'btn btn-large' %></li>
+                      <li class="titre_espace" ><%= link_to "Espace Evenements", events_path,:class => 'well' %></li>
+                      <li class="titre_espace" ><%= link_to "Espace Actualites", actualites_path,:class => 'well' %></li>
+                      <li class="titre_espace" ><%= link_to "Espace Annonces", annonces_path,:class => 'well '%></li>
+                      <li class="titre_espace" ><%= link_to "Espace Utilisateurs", users_path,:class => 'well' %></li>
                     </ul>
             </div>
             <% end %>
 
-              <% if (user_signed_in? and current_user.adminEvent?) %>
-          <% user= current_user%>
+              <% if (user_signed_in? and (current_user.admin? || current_user.adminEvent? ) ) %>
+
           <div class="well sidebar-nav" style="background-color:#931869;color: #fff;width:130%; border:3px solid #044d47" >
                     <ul class="nav nav-pills nav-stacked" style="text-align: justify;padding:10px">
                       <li class="active">
                         <a href="#"><i class="icon-user icon-white"></i> Espace Events</a>
                       </li>
-                      <li class=""><%= link_to "Creer event", new_event_path, :class => 'btn btn-large'%></li>
-                      <li class=""><%= link_to "Liste des events", events_path,:class => 'btn btn-large'%></li>
-                      <li class=""><%= link_to "Créer catégory event", new_category_event_path,:class => 'btn btn-large'%></li>
-                      <li class=""><%= link_to "Catégory des events", category_events_path,:class => 'btn btn-large'%></li>
-                    </ul>
+                      <li class="titre_espace"><%= link_to "Creer event", new_event_path, :class => 'well'%></li>
+                      <li class="titre_espace"><%= link_to "Créer catégory event", new_category_event_path,:class => 'well'%></li>
+                      <li class="titre_espace"><%= link_to "Créer lieu", lieus_path,:class => 'well'%></li>
+                      <li class="titre_espace"><%= link_to "Liste des events", events_path,:class => 'well'%></li>
+                      <li class="titre_espace"><%= link_to "Catégory des events", category_events_path,:class => 'well'%></li>
+                      </ul>
 
 
             </div>
@@ -180,8 +160,8 @@
                               <li class="active">
                                 <a href="#" style="text-align:center"><i class="icon-user icon-white"></i> Partager la page </a>
                               </li>
-                              <li class=""><%= link_to raw(" <center> <i class='icon-eye-open icon-black' style=''> Sur facebook</i> </center>"), root_path, :class => 'label' %></li>
-                              <li class=""><%= link_to raw(" <center> <i class='icon-eye-open icon-black' style=''> Sur Twitter</i> </center>"),root_path, :class => 'label' %></li>
+                              <li class=""><%= link_to raw(" <center> <i class='icon-eye-open icon-black' style=''> Sur facebook</i> </center>"), root_path, :class => 'well' %></li>
+                              <li class=""><%= link_to raw(" <center> <i class='icon-eye-open icon-black' style=''> Sur Twitter</i> </center>"),root_path, :class => 'well' %></li>
 
 
                             </ul>
@@ -190,16 +170,58 @@
             </div><!--/span-->
 
             <div class="span10" style="padding-left:7%; margin-left:5%; width:80%; text-align:justify">
+
+              <% unless user_signed_in?%>
+              <div class="modal hide fade" id="myModal">
+                <div class="modal-header">
+                  <a class="close" data-dismiss="modal">×</a>
+                  <h3>Inscrivez vous!!!</h3>
+                </div>
+                <div class="modal-body">
+                  <h4>Renseignez vos information</h4>
+                  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+
+
+                      <div><%= f.label :Nom %>
+                        <%= f.text_field :nom %></div><br/>
+
+                      <div><%= f.label :Prenom %>
+                        <%= f.text_field :prenom %></div><br/>
+
+                      <div><%= f.label :Telephone %>
+                        <%= f.text_field :telephone %></div><br/>
+
+                      <div><%= f.label :Pseudo %>
+                        <%= f.text_field :login %></div><br/>
+
+                      <div><%= f.label :email %>
+                        <%= f.email_field :email %></div><br/>
+
+                      <div><%= f.label :password %>
+                        <%= f.password_field :password %></div><br/>
+
+                      <div><%= f.label :password_confirmation %>
+                        <%= f.password_field :password_confirmation %></div><br/>
+
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <%= f.submit "Valider", :class => ' btn btn-primary btn-large' %>
+                </div>
+                  <% end %>
+              </div>
+              <% end %>
               <%= yield %>
             </div>
       </div><!--/row-fluid-->
       </div><!-- /container -->
     </div>
     <footer id="foot" >
-    <div class="well sidebar-nav" style="background-color:#931869;margin-left:2%;margin-right:2%;border:3px solid #44d47" >
+    <div class="well sidebar-nav" style="background-color:#931869;margin-left:2%;margin-right:2%;border:3px solid #44484b" >
       <table class="table table-bordered">
           <tr>
-            <td><%=image_tag("banDP.png")%></td>
             <td><%=image_tag("banDP.png")%></td>
             <td><%=image_tag("banDP.png")%></td>
             <td><%=image_tag("banDP.png")%></td>

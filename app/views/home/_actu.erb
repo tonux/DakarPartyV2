@@ -1,0 +1,36 @@
+<% actus=Actualite.all%>
+<% if !actus==nil?%>
+    <% actus.each do |actu| %>
+<!-- Begin of rows -->
+<div class="row carousel-row">
+  <div class="col-xs-8 col-xs-offset-2 slide-row">
+    <div id="carousel-1" class="carousel slide slide-carousel" data-ride="carousel">
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+        <div class="item active">
+          <%= image_tag(actu.picture_url, :width => 150, :height => 150) if actu.picture.present? %>
+
+        </div>
+      </div>
+    </div>
+    <div class="slide-content">
+      <h4 style="background-color:#15928e; color:#000"><%=link_to actu.titleActu, actu%></h4>
+      <p>
+        <%= actu.contenu[0..230].gsub(/\s\w+\s*$/, '...')%>
+      </p>
+    </div>
+    <div class="slide-footer">
+                 <i class="icon-calendar"> <%= actu.created_at.strftime("%d %B %Y") %></i>
+                <span class="pull-right buttons">
+                    <%=link_to raw('<button class="btn btn-sm btn-mini btn-primary"> Lire la suite </button>') , actu %>
+                </span>
+    </div>
+  </div>
+</div>
+
+<% end %>
+
+<% end %>
+
+<%= link_to raw('<span class="btn btn-primary" style="margin-left: 40%"> Voir Tout <i class="icon-plus icon-white" ></i></span>'), actualites_path%>

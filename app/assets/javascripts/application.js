@@ -17,3 +17,4 @@
 //= require fullcalendar.min
 //= require unicorn
 //= require unicorn.calendar
+//= require social-share-button

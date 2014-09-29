@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130406214243) do
+ActiveRecord::Schema.define(:version => 20140929201534) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(:version => 20130406214243) do
     t.string   "picture"
     t.datetime "heure_debut"
     t.datetime "heure_fin"
+    t.boolean  "big_event"
   end
 
   add_index "events", ["categoryEvent_id"], :name => "index_events_on_categoryEvent_id"
@@ -154,6 +155,7 @@ ActiveRecord::Schema.define(:version => 20130406214243) do
     t.string   "descPartenaire"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "structure_id"
   end
 
   create_table "structures", :force => true do |t|

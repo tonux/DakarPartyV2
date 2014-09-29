@@ -3,10 +3,14 @@
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
 
-<% if @annonce==nil %>
+<% if @annonces.size == 0 %>
   <div class="alert alert-success">
-      <a class="close" data-dismiss="alert">×</a>
-      Liste des annonces est vide.               
+      <a class="close" data-dismiss="alert"></a>
+      Liste des annonces est vide.
+
+    <%= link_to t('.new', :default => t("helpers.links.new")),
+                new_annonce_path,
+                :class => 'btn btn-primary' %>
   </div>
 <% else %>
 <table class="table table-striped">
@@ -24,7 +28,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @annonces.each do |annonce| %>
+    <% @annonces.reverse.each do |annonce| %>
       <tr>
         <td><%= link_to annonce.id, annonce_path(annonce) %></td>
         <td><%= annonce.titleAnnonce %></td>
