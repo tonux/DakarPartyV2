@@ -36,6 +36,7 @@ production:
   encoding: utf8
   username: tonux
   host: mysql2.alwaysdata.com
+  port: 3306
   reconnect: false
   database: tonux_dakarParty
   pool: 5
