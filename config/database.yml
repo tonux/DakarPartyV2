@@ -32,14 +32,24 @@ test:
   socket: /var/run/mysqld/mysqld.sock
 
 production:
-  adapter: mysql2
-  encoding: utf8
-  username: tonux
-  host: mysql2.alwaysdata.com
-  port: 3306
-  reconnect: false
-  database: tonux_dakarParty
+  adapter: postgresql
+  database: tonux_gooditown
+  host: postgresql1.alwaysdata.com
   pool: 5
-  password: yayeadama313
   timeout: 5000
-  socket: /var/run/mysqld/mysqld.sock
+  username: tonux
+  password: yayeadama313
+
+#
+#production:
+#  adapter: mysql2
+#  encoding: utf8
+#  username: tonux
+#  host: mysql2.alwaysdata.com
+#  port: 3306
+#  reconnect: false
+#  database: tonux_dakarParty
+#  pool: 5
+#  password: yayeadama313
+#  timeout: 5000
+#  socket: /var/run/mysqld/mysqld.sock
