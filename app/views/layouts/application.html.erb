@@ -106,43 +106,33 @@
 
             <div class="span2" style="width:15%">
 
-              <% event_days=Event.all.reverse %>
-              <% big_event= nil %>
-              <% event_days.each do |event_day| %>
-              <% if event_day.date_debut == Date.today && event_day.big_event?  %>
-                      <% big_event = event_day %>
-              <% end %>
-              <% end %>
-              <% if big_event.nil? %>
-
 
                   <div class="well sidebar-nav" style="background-color:#931869; color: #fff; width:130%; border:3px solid #044d47">
                     <ul class="nav nav-pills nav-stacked" style="text-align: justify; padding:10px">
-                      <li class="active">
 
 
                         <center><%= image_tag("logo1.png")%></center>
                         <p>Découvrez l'agenda culturel de Dakar : concert à Dakar, théâtre à Dakar, spectacle de danse et de cirque, expo, festival pour trouver où sortir à Dakar...
                           </p>
-                      </li>
+
                     </ul>
 
                   </div>
-                  <%else%>
-                  <div class="well sidebar-nav" style="background-color:#931869; color: #fff; width:130%; border:3px solid #044d47">
-                    <ul class="nav nav-pills nav-stacked" style="text-align: justify; padding:10px">
-                      <li class="active">
-                        <a href="#" style="text-align:center"><i class="icon-hand-right icon-white"></i> Big évenement du jour!</a>
-                        <marquee><h5>Soirée de Youssou Ndour</h5></marquee>
-                        <center><%= image_tag("you2.jpg")%></center>
-                        <h5>heure: 23h</h5>
-                        <h5>Lieu: Thiossane</h5>
-                        <h5>Entrée: 5 000f</h5>
-                      </li>
-                    </ul>
 
-                  </div>
-                <% end %>
+                  <!--<div class="well sidebar-nav" style="background-color:#931869; color: #fff; width:130%; border:3px solid #044d47">-->
+                    <!--<ul class="nav nav-pills nav-stacked" style="text-align: justify; padding:10px">-->
+                      <!--<li class="active">-->
+                        <!--<a href="#" style="text-align:center"><i class="icon-hand-right icon-white"></i> Big évenement du jour!</a>-->
+                        <!--<marquee><h5>Soirée de Youssou Ndour</h5></marquee>-->
+                        <!--<center><%= image_tag("you2.jpg")%></center>-->
+                        <!--<h5>heure: 23h</h5>-->
+                        <!--<h5>Lieu: Thiossane</h5>-->
+                        <!--<h5>Entrée: 5 000f</h5>-->
+                      <!--</li>-->
+                    <!--</ul>-->
+
+                  <!--</div>-->
+
 
 
 
