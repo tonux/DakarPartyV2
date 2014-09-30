@@ -187,6 +187,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise (= 2.1.3)
   djanoa (= 1.0.1)
+  execjs
   fullcalendar-rails
   jquery-rails
   less-rails-bootstrap
