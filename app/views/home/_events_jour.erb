@@ -1,7 +1,12 @@
 <% event_days=Event.all.reverse %>
+<% compte=0 %>
 <% if !event_days.nil?   %>
+
+
                     <% event_days.each do |event_day| %>
                         <% if event_day.date_debut == Date.today   %>
+
+                          <% compte +=1%>
                           <% lieu=Lieu.find_by_id(event_day.lieu_id)%>
 
 
@@ -82,9 +87,27 @@
 
                       </div>
                     </div>
-                      <% end %>
-                      <% end %>
-                    <% else %>
 
+
+                      <% end %>
+                      <% end %>
+                       <% if compte ==0 %>
+                            <div class="col-xs-12 col-sm-6 col-lg-4">
+                              <div class="box">
+                                <div class="icon">
+                                  <div class="image"><i class="icon icon-hand-down"></i></div>
+                                  <div class="info">
+                                    <h3 class="title">Pas d'événement aujourd'hui</h3>
+                                    <p> Hello! Nous avons pas de programme pour aujourd'hui</p>
+                                    <div class="more">
+
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="space"></div>
+                              </div>
+                            </div>
+                       <% end %>
 
                     <% end %>

@@ -1,8 +1,10 @@
 <% event_days=Event.all %>
+<% compte=0 %>
 <% if !event_days==nil?%>
                     <% event_days.each do |event_day| %>
                     <% if (event_day.date_debut >=Date.today) and (event_day.date_debut <= event_day.date_debut.next.at_end_of_month)%>
                           <% lieu=Lieu.find_by_id(event_day.lieu_id)%>
+                          <% compte += 1 %>
                           <% structure=Structure.find_by_id(event_day.structure_id)%>
             <table style="margin-bottom:10px;">
               <tr >
@@ -36,9 +38,27 @@
               </tr>
             </table>
                        <hr/>
+
                       <% end %>
                       <% end %>
-                    <% else %>
+                    <% if compte ==0 %>
+                        <div class="col-xs-12 col-sm-6 col-lg-4">
+                          <div class="box">
+                            <div class="icon">
+                              <div class="image"><i class="icon icon-hand-down"></i></div>
+                              <div class="info">
+                                <h3 class="title">Pas d'événement aujourd'hui</h3>
+                                <p> Hello! Nous avons pas de programme pour aujourd'hui</p>
+                                <div class="more">
+
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="space"></div>
+                          </div>
+                        </div>
+                    <% end %>
 
 
                     <% end %>
