@@ -38,7 +38,7 @@ gem 'social-share-button'
 
 gem 'mysql2'
 
-#gem 'pg', '0.17.1'
+gem 'pg', '0.17.1'
 
 
 # Gems used only for assets and not required
