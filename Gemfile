@@ -19,13 +19,17 @@ gem 'cancan'
 
 gem 'twitter-bootstrap-rails'
 
-gem 'less-rails-bootstrap'
+#gem 'less-rails-bootstrap'
+
+gem 'less-rails', '2.3.3'
 
 gem 'carrierwave'
 
 gem 'rmagick'
 
-gem 'fullcalendar-rails'
+gem 'tinymce-rails', '~> 4.1.5'
+
+#gem 'fullcalendar-rails'
 
 
 #gem for social network share
@@ -38,7 +42,8 @@ gem 'social-share-button'
 
 gem 'mysql2'
 
-#gem 'pg', '0.17.1'
+
+#gem 'pg', '~> 0.17.1'
 
 
 # Gems used only for assets and not required

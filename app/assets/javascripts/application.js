@@ -18,3 +18,4 @@
 //= require unicorn
 //= require unicorn.calendar
 //= require social-share-button
+//= require tinymce

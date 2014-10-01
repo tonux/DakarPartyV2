@@ -1,12 +1,13 @@
 (function() {
+  window.ActiveAdmin = {};
 
-  window.AA = {};
+  if (!window.AA) {
+    window.AA = window.ActiveAdmin;
+  }
 
 }).call(this);
 (function() {
-
-  window.AA.CheckboxToggler = AA.CheckboxToggler = (function() {
-
+  window.ActiveAdmin.CheckboxToggler = ActiveAdmin.CheckboxToggler = (function() {
     function CheckboxToggler(options, container) {
       var defaults;
       this.options = options;
@@ -19,81 +20,68 @@
 
     CheckboxToggler.prototype._init = function() {
       if (!this.container) {
-        throw new Error("Container element not found");
+        throw new Error('Container element not found');
       } else {
         this.$container = $(this.container);
       }
-      if (!this.$container.find(".toggle_all").length) {
-        throw new Error("'toggle all' checkbox not found");
+      if (!this.$container.find('.toggle_all').length) {
+        throw new Error('"toggle all" checkbox not found');
       } else {
-        this.toggle_all_checkbox = this.$container.find(".toggle_all");
+        this.toggle_all_checkbox = this.$container.find('.toggle_all');
       }
-      return this.checkboxes = this.$container.find(":checkbox").not(this.toggle_all_checkbox);
+      return this.checkboxes = this.$container.find(':checkbox').not(this.toggle_all_checkbox);
     };
 
     CheckboxToggler.prototype._bind = function() {
-      var _this = this;
-      this.checkboxes.bind("change", function(e) {
-        return _this._didChangeCheckbox(e.target);
-      });
-      return this.toggle_all_checkbox.bind("change", function(e) {
-        return _this._didChangeToggleAllCheckbox();
-      });
+      this.checkboxes.change((function(_this) {
+        return function(e) {
+          return _this._didChangeCheckbox(e.target);
+        };
+      })(this));
+      return this.toggle_all_checkbox.change((function(_this) {
+        return function() {
+          return _this._didChangeToggleAllCheckbox();
+        };
+      })(this));
     };
 
     CheckboxToggler.prototype._didChangeCheckbox = function(checkbox) {
-      if (this.checkboxes.filter(":checked").length === this.checkboxes.length - 1) {
-        return this._uncheckToggleAllCheckbox();
-      } else if (this.checkboxes.filter(":checked").length === this.checkboxes.length) {
-        return this._checkToggleAllCheckbox();
+      switch (this.checkboxes.filter(':checked').length) {
+        case this.checkboxes.length - 1:
+          return this.toggle_all_checkbox.prop({
+            checked: null
+          });
+        case this.checkboxes.length:
+          return this.toggle_all_checkbox.prop({
+            checked: true
+          });
       }
     };
 
     CheckboxToggler.prototype._didChangeToggleAllCheckbox = function() {
-      if (this.toggle_all_checkbox.attr("checked") === "checked") {
-        return this._checkAllCheckboxes();
-      } else {
-        return this._uncheckAllCheckboxes();
-      }
-    };
-
-    CheckboxToggler.prototype._uncheckToggleAllCheckbox = function() {
-      return this.toggle_all_checkbox.removeAttr("checked");
-    };
-
-    CheckboxToggler.prototype._checkToggleAllCheckbox = function() {
-      return this.toggle_all_checkbox.attr("checked", "checked");
-    };
-
-    CheckboxToggler.prototype._uncheckAllCheckboxes = function() {
-      var _this = this;
-      return this.checkboxes.each(function(index, el) {
-        $(el).removeAttr("checked");
-        return _this._didChangeCheckbox(el);
-      });
-    };
-
-    CheckboxToggler.prototype._checkAllCheckboxes = function() {
-      var _this = this;
-      return this.checkboxes.each(function(index, el) {
-        $(el).attr("checked", "checked");
-        return _this._didChangeCheckbox(el);
-      });
+      var setting;
+      setting = this.toggle_all_checkbox.prop('checked') ? true : null;
+      return this.checkboxes.each((function(_this) {
+        return function(index, el) {
+          $(el).prop({
+            checked: setting
+          });
+          return _this._didChangeCheckbox(el);
+        };
+      })(this));
     };
 
     return CheckboxToggler;
 
   })();
 
-  (function($) {
-    return $.widget.bridge('checkboxToggler', AA.CheckboxToggler);
-  })(jQuery);
+  jQuery(function($) {
+    return $.widget.bridge('checkboxToggler', ActiveAdmin.CheckboxToggler);
+  });
 
 }).call(this);
 (function() {
-
-  window.AA.DropdownMenu = AA.DropdownMenu = (function() {
-
+  window.ActiveAdmin.DropdownMenu = ActiveAdmin.DropdownMenu = (function() {
     function DropdownMenu(options, element) {
       var defaults;
       this.options = options;
@@ -110,7 +98,6 @@
       this.isOpen = false;
       this._buildMenuList();
       this._bind();
-      return this;
     }
 
     DropdownMenu.prototype.open = function() {
@@ -161,27 +148,30 @@
     };
 
     DropdownMenu.prototype._bind = function() {
-      var _this = this;
-      $("body").bind('click', function() {
-        if (_this.isOpen === true) {
-          return _this.close();
-        }
-      });
-      return this.$menuButton.bind('click', function() {
-        if (!_this.isDisabled()) {
+      $("body").bind('click', (function(_this) {
+        return function() {
           if (_this.isOpen === true) {
-            _this.close();
-          } else {
-            _this.open();
+            return _this.close();
           }
-        }
-        return false;
-      });
+        };
+      })(this));
+      return this.$menuButton.bind('click', (function(_this) {
+        return function() {
+          if (!_this.isDisabled()) {
+            if (_this.isOpen === true) {
+              _this.close();
+            } else {
+              _this.open();
+            }
+          }
+          return false;
+        };
+      })(this));
     };
 
     DropdownMenu.prototype._positionMenuList = function() {
       var centerOfButtonFromLeft, centerOfmenuListFromLeft, menuListLeftPos;
-      centerOfButtonFromLeft = this.$menuButton.offset().left + this.$menuButton.outerWidth() / 2;
+      centerOfButtonFromLeft = this.$menuButton.position().left + this.$menuButton.outerWidth() / 2;
       centerOfmenuListFromLeft = this.$menuList.outerWidth() / 2;
       menuListLeftPos = centerOfButtonFromLeft - centerOfmenuListFromLeft;
       return this.$menuList.css("left", menuListLeftPos);
@@ -190,7 +180,7 @@
     DropdownMenu.prototype._positionNipple = function() {
       var $nipple, bottomOfButtonFromTop, centerOfmenuListFromLeft, centerOfnippleFromLeft, nippleLeftPos;
       centerOfmenuListFromLeft = this.$menuList.outerWidth() / 2;
-      bottomOfButtonFromTop = this.$menuButton.offset().top + this.$menuButton.outerHeight() + 10;
+      bottomOfButtonFromTop = this.$menuButton.position().top + this.$menuButton.outerHeight() + 10;
       this.$menuList.css("top", bottomOfButtonFromTop);
       $nipple = this.$menuList.find(".dropdown_menu_nipple");
       centerOfnippleFromLeft = $nipple.outerWidth() / 2;
@@ -203,7 +193,7 @@
   })();
 
   (function($) {
-    $.widget.bridge('aaDropdownMenu', AA.DropdownMenu);
+    $.widget.bridge('aaDropdownMenu', ActiveAdmin.DropdownMenu);
     return $(function() {
       return $(".dropdown_menu").aaDropdownMenu();
     });
@@ -211,9 +201,7 @@
 
 }).call(this);
 (function() {
-
-  window.AA.Popover = AA.Popover = (function() {
-
+  window.ActiveAdmin.Popover = ActiveAdmin.Popover = (function() {
     function Popover(options, element) {
       var defaults;
       this.options = options;
@@ -236,7 +224,6 @@
       }
       this._buildPopover();
       this._bind();
-      return this;
     }
 
     Popover.prototype.open = function() {
@@ -269,21 +256,24 @@
     };
 
     Popover.prototype._bind = function() {
-      var _this = this;
-      $(this.options.pageWrapperElement).bind('click', function(e) {
-        if (_this.isOpen === true) {
-          return _this.close();
-        }
-      });
-      if (this.options.autoOpen === true) {
-        return this.$element.bind('click', function() {
+      $(this.options.pageWrapperElement).bind('click', (function(_this) {
+        return function(e) {
           if (_this.isOpen === true) {
-            _this.close();
-          } else {
-            _this.open();
+            return _this.close();
           }
-          return false;
-        });
+        };
+      })(this));
+      if (this.options.autoOpen === true) {
+        return this.$element.bind('click', (function(_this) {
+          return function() {
+            if (_this.isOpen === true) {
+              _this.close();
+            } else {
+              _this.open();
+            }
+            return false;
+          };
+        })(this));
       }
     };
 
@@ -311,7 +301,7 @@
   })();
 
   (function($) {
-    return $.widget.bridge('popover', AA.Popover);
+    return $.widget.bridge('popover', ActiveAdmin.Popover);
   })(jQuery);
 
 }).call(this);
@@ -319,8 +309,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  window.AA.TableCheckboxToggler = AA.TableCheckboxToggler = (function(_super) {
-
+  window.ActiveAdmin.TableCheckboxToggler = ActiveAdmin.TableCheckboxToggler = (function(_super) {
     __extends(TableCheckboxToggler, _super);
 
     function TableCheckboxToggler() {
@@ -332,63 +321,73 @@
     };
 
     TableCheckboxToggler.prototype._bind = function() {
-      var _this = this;
       TableCheckboxToggler.__super__._bind.apply(this, arguments);
-      return this.$container.find("tbody").find("td").bind("click", function(e) {
-        if (e.target.type !== 'checkbox') {
-          return _this._didClickCell(e.target);
-        }
-      });
+      return this.$container.find('tbody td').click((function(_this) {
+        return function(e) {
+          if (e.target.type !== 'checkbox') {
+            return _this._didClickCell(e.target);
+          }
+        };
+      })(this));
     };
 
     TableCheckboxToggler.prototype._didChangeCheckbox = function(checkbox) {
       var $row;
       TableCheckboxToggler.__super__._didChangeCheckbox.apply(this, arguments);
-      $row = $(checkbox).parents("tr");
+      $row = $(checkbox).parents('tr');
       if (checkbox.checked) {
-        return $row.addClass("selected");
+        return $row.addClass('selected');
       } else {
-        return $row.removeClass("selected");
+        return $row.removeClass('selected');
       }
     };
 
     TableCheckboxToggler.prototype._didClickCell = function(cell) {
-      return $(cell).parent("tr").find(':checkbox').click();
+      return $(cell).parent('tr').find(':checkbox').click();
     };
 
     return TableCheckboxToggler;
 
-  })(AA.CheckboxToggler);
+  })(ActiveAdmin.CheckboxToggler);
 
-  (function($) {
-    return $.widget.bridge('tableCheckboxToggler', AA.TableCheckboxToggler);
-  })(jQuery);
-
-}).call(this);
-(function() {
-
-  $(function() {
-    $(".datepicker").datepicker({
-      dateFormat: "yy-mm-dd"
-    });
-    $(".clear_filters_btn").click(function() {
-      window.location.search = "";
-      return false;
-    });
-    return $(".dropdown_button").popover();
+  jQuery(function($) {
+    return $.widget.bridge('tableCheckboxToggler', ActiveAdmin.TableCheckboxToggler);
   });
 
 }).call(this);
 (function() {
+  $(function() {
+    $(document).on('focus', '.datepicker:not(.hasDatepicker)', function() {
+      return $(this).datepicker({
+        dateFormat: 'yy-mm-dd'
+      });
+    });
+    $('.clear_filters_btn').click(function() {
+      return window.location.search = '';
+    });
+    $('.dropdown_button').popover();
+    $('.filter_form').submit(function() {
+      return $(this).find(':input').filter(function() {
+        return this.value === '';
+      }).prop('disabled', true);
+    });
+    return $('.filter_form_field.select_and_search select').change(function() {
+      return $(this).siblings('input').prop({
+        name: "q[" + this.value + "]"
+      });
+    });
+  });
 
+}).call(this);
+(function() {
   jQuery(function($) {
     $(document).delegate("#batch_actions_selector li a", "click.rails", function() {
       $("#batch_action").val($(this).attr("data-action"));
       return $("#collection_selection").submit();
     });
     if ($("#batch_actions_selector").length && $(":checkbox.toggle_all").length) {
-      if ($(".paginated_collection").find("table.index_table").length) {
-        $(".paginated_collection table").tableCheckboxToggler();
+      if ($(".paginated_collection table.index_table").length) {
+        $(".paginated_collection table.index_table").tableCheckboxToggler();
       } else {
         $(".paginated_collection").checkboxToggler();
       }
