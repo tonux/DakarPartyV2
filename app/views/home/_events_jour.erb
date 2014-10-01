@@ -15,10 +15,7 @@
                       <table style="margin-bottom:10px;">
                       <tr >
                         <td><%= image_tag(event_day.picture_url, :width => 240, :height => 120) if event_day.picture.present? %></td>
-                     <div class="item" style="">
-
-
-                  </div>   <td>
+                        <td>
                           <table class="" style="">
                              <% modal="myModal"+event_day.id.to_s%>
                             <% hmodal="#"+modal %>
@@ -92,22 +89,13 @@
                       <% end %>
                       <% end %>
                        <% if compte ==0 %>
-                            <div class="col-xs-12 col-sm-6 col-lg-4">
-                              <div class="box">
-                                <div class="icon">
-                                  <div class="image"><i class="icon icon-hand-down"></i></div>
-                                  <div class="info">
-                                    <h3 class="title">Pas d'événement aujourd'hui</h3>
-                                    <p> Hello! Nous avons pas de programme pour aujourd'hui</p>
-                                    <div class="more">
 
 
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="space"></div>
-                              </div>
-                            </div>
+
+                        <div class="alert alert-success">
+                          <a class="close" data-dismiss="alert"></a>
+                          <span style="font-size: 1.5em; font-family: 'Glyphicons Halflings'" > Hello! Nous avons pas d'événement pour aujourd'hui <%= image_tag("smile2.png", :width => 50)%></span>
+                        </div>
                        <% end %>
 
                     <% end %>
